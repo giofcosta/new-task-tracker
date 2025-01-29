@@ -1,0 +1,81 @@
+# --- Node.js/Vue.js ---
+node_modules/
+dist/
+.tmp/
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.*.local
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+venv/
+ENV/
+env/
+.venv/
+*.egg-info/
+.installed.cfg
+.coverage
+coverage.xml
+htmlcov/
+
+# --- Docker ---
+docker-compose.override.yml
+.env  # Comment this out if you need to commit environment variables
+docker-compose.*.yml
+*.env
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+
+# --- OS Generated ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Testing/Code Quality ---
+.jest/
+.nyc_output/
+reports/
+*.xml
+*.junit
+
+# --- Build Tools ---
+.eslintcache
+*.tgz
+.yarn-integrity
+.yarn/
+dist-ssr/
+*.tsbuildinfo
+
+# --- Local Development ---
+.env.staging
+.env.production
+.env.development
+
+# Optional backend-specific
+task-tracker-api/instance/
+task-tracker-api/.coverage
+
+# Optional frontend-specific
+task-tracker-web/.eslintrc.js  # Only if not using custom config
+task-tracker-web/babel.config.js
+task-tracker-web/package-lock.json  # If using yarn 
