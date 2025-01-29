@@ -1,30 +1,65 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="container">
+    <h1>Weekly Task Tracker</h1>
+    <button @click="addNewRow">Add New Row</button>
+    <TaskTable :tasks="tasks" :days="days" @update-hour="updateHour" />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useTaskStore } from '@/stores/task';
+import TaskTable from '@/components/TaskTable.vue';
+
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+interface Task {
+  name: string
+  hours: number[]
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+const tasks = ref<Task[]>([
+  {
+    name: 'Development',
+    hours: [8, 8, 8, 8, 8, 4, 4]
+  },
+  {
+    name: 'Meetings',
+    hours: [2, 1, 2, 1, 2, 0, 0]
+  },
+  {
+    name: 'Code Reviews',
+    hours: [1, 2, 1, 2, 1, 0, 0]
+  }
+]);
+
+const taskStore = useTaskStore()
+
+const updateHour = (taskIndex: number, dayIndex: number, newValue: number) => {
+  tasks.value[taskIndex].hours[dayIndex] = Math.max(0, Math.min(24, newValue));
+};
+
+const addNewRow = () => {
+  taskStore.addTask({
+    id: Date.now(), // Temporary unique ID
+    title: '',
+    description: '',
+    status: 'pending',
+    createdAt: new Date().toISOString()
+  })
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+</script>
+
+<style>
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 </style>
